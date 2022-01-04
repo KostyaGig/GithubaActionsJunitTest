@@ -25,4 +25,10 @@ class MainActivityTest {
         onView(withId(R.id.first_tv)).perform(click()).check(matches(withText("First text")))
         onView(withId(R.id.second_tv)).check(matches(withText("Second new text")))
     }
+
+    @Test
+    fun second_test() {
+        onView(withId(R.id.second_tv)).perform(click())
+        onView(withId(R.id.first_tv)).check(matches(withText("First new text2")))
+    }
 }

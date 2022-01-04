@@ -15,5 +15,9 @@ class MainActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.second_tv).text = "Second new text"
         }
 
+        findViewById<TextView>(R.id.second_tv).setOnClickListener {
+            findViewById<TextView>(R.id.first_tv).text = "First new text"
+        }
+
     }
 }
