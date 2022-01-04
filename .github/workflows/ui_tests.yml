@@ -6,23 +6,26 @@ on:
       - 'master'
  
 jobs:
-  run_ui_tests_on_firebase:
-    runs-on: ubuntu-20.04
+ test:
+    name: Run Test Suite [Unit, Instrumented]
+    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Download app-debug APK
-        uses: actions/download-artifact@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set Up JDK 11
+        uses: actions/setup-java@v1
         with:
-          name: app-debug
- 
-      - name: Download app-debug-androidTest APK
-        uses: actions/download-artifact@v1
+          java-version: 11
+
+      - name: Execute Unit Tests (gradlew test)
+        run: bash ./gradlew test --stacktrace
+
+      - name: Execute Instrumentation Tests (gradlew connectedCheck - api 23)
+        uses: reactivecircus/android-emulator-runner@v2
         with:
-          name: app-debug-androidTest
- 
-      - name: Firebase auth with gcloud
-        uses: google-github-actions/setup-gcloud@master
-        with:
-          version: '290.0.1'
-          service_account_key: ${{ secrets.FIREBASE_KEY }}
-          project_id: ${{ secrets.FIREBASE_PROJECT_ID }}
+          api-level: 23
+          target: default
+          arch: x86
+          profile: Nexus 6
+          script: ./gradlew connectedCheck --stacktrace
