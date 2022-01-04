@@ -1,14 +1,13 @@
 name: UI_tests_on_release
  
 on:
-  pull_request:
+  push:
     branches:
       - 'master'
  
 jobs:
   run_ui_tests_on_firebase:
     runs-on: ubuntu-20.04
-    needs: assemble_ui_test_artifacts
     steps:
       - uses: actions/checkout@v2
       - name: Download app-debug APK
