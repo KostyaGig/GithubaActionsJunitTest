@@ -1,0 +1,29 @@
+name: UI_tests_on_release
+ 
+on:
+  pull_request:
+    branches:
+      - 'master'
+ 
+jobs:
+  run_ui_tests_on_firebase:
+    runs-on: ubuntu-20.04
+    needs: assemble_ui_test_artifacts
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download app-debug APK
+        uses: actions/download-artifact@v1
+        with:
+          name: app-debug
+ 
+      - name: Download app-debug-androidTest APK
+        uses: actions/download-artifact@v1
+        with:
+          name: app-debug-androidTest
+ 
+      - name: Firebase auth with gcloud
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          version: '290.0.1'
+          service_account_key: ${{ secrets.FIREBASE_KEY }}
+          project_id: ${{ secrets.FIREBASE_PROJECT_ID }}
