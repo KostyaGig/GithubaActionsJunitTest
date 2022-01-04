@@ -1,12 +1,12 @@
 name: UI_tests_on_release
- 
+
 on:
   push:
     branches:
       - 'master'
- 
+
 jobs:
- test:
+  test:
     name: Run Test Suite [Unit, Instrumented]
     runs-on: macos-latest
     steps:

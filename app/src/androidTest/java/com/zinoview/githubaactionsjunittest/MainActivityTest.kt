@@ -23,6 +23,6 @@ class MainActivityTest {
     @Test
     fun test() {
         onView(withId(R.id.first_tv)).perform(click()).check(matches(withText("First text")))
-        onView(withId(R.id.second_tv)).check(matches(withText("Second new text2")))
+        onView(withId(R.id.second_tv)).check(matches(withText("Second new text")))
     }
 }
